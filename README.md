@@ -8,7 +8,7 @@ Redact emails, phone numbers and cookies contained within a CSV for the purposes
 
 # CSV Format
 1. Filename may be whatever you choose, you must supply the filename as an argument to the script and it must be in the same directory as the script
-2. CSV only supports the following columns (email, vuid, phone). Any other columns will be rejected.
+2. CSV only supports the following columns (email, vuid, phone). Any other columns will be rejected and logged to file so you can fix to re-run.
 
 # Script Arguments
 ```usage: gdpr.py [-h] [-l LOGLEVEL] -r REQUESTER -f FILE -a AUTH
@@ -28,3 +28,7 @@ optional arguments:
   -a AUTH, --auth AUTH  Supply the authentication token for the account that
                         contains the identifiers to be processed```
 
+# Log Format
+```ERROR:root:REQUEST FAILED FOR EMAIL:tyler@gmail.com
+ERROR:root:REQUEST FAILED FOR PHONE:123456
+ERROR:root:MISSING OR INVALID COLUMN HEADER:bob@msn.com```
