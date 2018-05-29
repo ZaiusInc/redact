@@ -8,7 +8,7 @@ Redact emails, phone numbers and cookies contained within a CSV for the purposes
 
 # CSV Format
 1. Filename may be whatever you choose, you must supply the filename as an argument to the script and it must be in the same directory as the script
-2. CSV only supports the following columns (email, vuid, phone). Any other columns will be rejected and logged to file so you can fix to re-run.
+2. CSV supports the following columns: `email`, `vuid`, `phone`. Any other columns will be rejected and logged to file so you can fix to re-run.
 
 # Script Arguments
 ```
