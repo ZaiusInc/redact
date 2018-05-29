@@ -11,7 +11,8 @@ Redact emails, phone numbers and cookies contained within a CSV for the purposes
 2. CSV only supports the following columns (email, vuid, phone). Any other columns will be rejected and logged to file so you can fix to re-run.
 
 # Script Arguments
-```usage: gdpr.py [-h] [-l LOGLEVEL] -r REQUESTER -f FILE -a AUTH
+```
+usage: gdpr.py [-h] [-l LOGLEVEL] -r REQUESTER -f FILE -a AUTH
 
 A script to redact all identifiers stored in a CSV for a given Zaius account.
 
@@ -26,9 +27,12 @@ optional arguments:
   -f FILE, --file FILE  Supply the name of the file with the identifiers to
                         process. Supported columns are: email, vuid, phone
   -a AUTH, --auth AUTH  Supply the authentication token for the account that
-                        contains the identifiers to be processed```
+                        contains the identifiers to be processed
+```
 
 # Log Format
-```ERROR:root:REQUEST FAILED FOR EMAIL:tyler@gmail.com
+```
+ERROR:root:REQUEST FAILED FOR EMAIL:tyler@gmail.com
 ERROR:root:REQUEST FAILED FOR PHONE:123456
-ERROR:root:MISSING OR INVALID COLUMN HEADER:bob@msn.com```
+ERROR:root:MISSING OR INVALID COLUMN HEADER:bob@msn.com
+```
