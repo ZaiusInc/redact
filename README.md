@@ -3,7 +3,7 @@ Redact emails, phone numbers and cookies contained within a CSV for the purposes
 
 # Requirements
 1. Python 3
-2. Requests Library
+2. Requests Library (`pip install requests`)
 3. Zaius API Key (Private, v3)
 
 # CSV Format
