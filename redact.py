@@ -50,6 +50,8 @@ class ZaiusGDPR():
 
     def redact(self):
 
+        row_number = 1
+
         for row in self.read_file():
 
             for column, field in row.items():
@@ -62,29 +64,38 @@ class ZaiusGDPR():
                 column = column.strip().lower()
                 field = field.strip()
 
-                if len(column) > 0 and column in ('email', 'phone', 'vuid'):
-                    
-                    redaction_metadata["requester"] = self.requester
-                    redaction_metadata[column] = field
+                if field != "":
 
-                    logging.debug("REQUEST BODY:" + str(redaction_metadata))
-                    logging.debug("REQUEST HEADER:" + str(redaction_headers))
+                    if len(column) > 0 and column in ('email', 'phone', 'vuid'):
+                        
+                        redaction_metadata["requester"] = self.requester
+                        redaction_metadata[column] = str(field)
 
-                    try:
-                        response = requests.post("https://api.zaius.com/v3/optout", json=redaction_metadata, headers=redaction_headers)
+                        logging.debug("REQUEST BODY:" + str(redaction_metadata))
+                        logging.debug("REQUEST HEADER:" + str(redaction_headers))
 
-                        if response.status_code == 202:
-                            logging.info("REDACTED " + column.upper() + ":" + field)
-                        else:
-                            logging.error("REQUEST FAILED FOR " + column.upper() + ":" + field)
-                            logging.warn("REQUEST RESPONSE " + response.status_code)
+                        try:
+                            response = requests.post("https://api.zaius.com/v3/optout", json=redaction_metadata, headers=redaction_headers)
+                            logging.debug("REQUEST BODY:" + str(redaction_metadata))
 
-                    except Exception as e:
-                        logging.error("REQUEST FAILED FOR " + column.upper() + ":" + field)
-                        logging.warn("REQUEST EXCEPTION:" + str(e))
+                            if response.status_code == 202:
+                                logging.info("REDACTED " + column.upper() + ":" + field)
+                            else:
+                                logging.error("REQUEST FAILED FOR " + column.upper() + ":" + field)
+                                logging.warn("REQUEST RESPONSE: " + str(response.status_code))
+
+                        except Exception as e:
+                            logging.error("REQUEST FAILED FOR " + column.upper() + ":" + field + " Message: " + str(e))
+                            logging.warn("REQUEST EXCEPTION:" + str(e))
+
+                    else:
+                        if len(column) == 0:
+                            logging.error("MISSING OR INVALID COLUMN HEADER:" + field)
 
                 else:
-                    if len(column) == 0:
-                        logging.error("MISSING OR INVALID COLUMN HEADER:" + field)
+                    logging.warn("EMPTY FIELD ON ROW:" + str(row_number) + " & COLUMN " + column)
+
+            row_number += 1
+            time.sleep(1)
 
 ZaiusGDPR()
