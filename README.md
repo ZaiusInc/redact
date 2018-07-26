@@ -12,7 +12,7 @@ Redact emails, phone numbers and cookies contained within a CSV for the purposes
 
 # Script Arguments
 ```
-usage: gdpr.py [-h] [-l LOGLEVEL] -r REQUESTER -f FILE -a AUTH
+usage: python redact.py [-h] [-l LOGLEVEL] -r REQUESTER -f FILE -a AUTH
 
 A script to redact all identifiers stored in a CSV for a given Zaius account.
 
